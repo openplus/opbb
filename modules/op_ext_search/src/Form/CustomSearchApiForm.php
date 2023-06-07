@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Url;
-use Drupal\search_api\Entity\Index;
 use Drupal\search_api\ParseMode\ParseModePluginManager;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -177,7 +176,7 @@ class CustomSearchApiForm extends FormBase {
    *   Array of facet options.
    */
   public function getFacetResults(string $field): array {
-    $index = Index::load('default_index');
+    $index = $this->entityTypeManager->getStorage('search_api_index')->load('default_index');
     $query = $index->query();
 
     // Change the parse mode for the search.
