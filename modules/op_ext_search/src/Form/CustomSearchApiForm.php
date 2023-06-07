@@ -168,9 +168,15 @@ class CustomSearchApiForm extends FormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Get the facet results.
+   *
+   * @param string $field
+   *   The facet field.
+   *
+   * @return array
+   *   Array of facet options.
    */
-  public function getFacetResults($field) {
+  public function getFacetResults(string $field): array {
     $index = Index::load('default_index');
     $query = $index->query();
 
