@@ -9,6 +9,8 @@ dependencies:
     - node
     - user
     - search_api
+    - search_api_db
+    - search_api_db_defaults
 _core:
   default_config_hash: 1Z5mkIupa4srK4uBCIHMbHkh6GC7NlFF_P3OOPgxnTU
 id: default_index

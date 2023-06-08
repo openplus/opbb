@@ -12,4 +12,6 @@ dependencies:
   - 'facets:facets_summary'
   - 'facets:facets'
   - 'panels:panels'
+  - 'search_api:search_api_db_defaults'
+  - 'search_api:search_api_db'
   - 'search_api:search_api'
