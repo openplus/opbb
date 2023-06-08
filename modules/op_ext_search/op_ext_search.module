@@ -53,7 +53,7 @@ function op_ext_search_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
- * Implements hook_form_views_exposed_form_alter().
+ * Implements hook_form_BASE_FORM_ID_alter().
  */
 function op_ext_search_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Hide label on search block on site search page.
