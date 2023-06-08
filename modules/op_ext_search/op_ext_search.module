@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements hook_theme().
  */
-function op_ext_search_theme($existing, $type, $theme, $path) {
+function op_ext_search_theme(array $existing, string $type, string $theme, string $path): array {
   return [
     'custom_search_api_block' => [
       'variables' => [
@@ -23,7 +23,7 @@ function op_ext_search_theme($existing, $type, $theme, $path) {
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
-function op_ext_search_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
+function op_ext_search_theme_suggestions_views_view_alter(array &$suggestions, array $variables): void {
   if ($variables['view']->id() == 'site_search') {
     $suggestions[] = $variables['theme_hook_original'] . '__site_search';
   }
@@ -32,7 +32,7 @@ function op_ext_search_theme_suggestions_views_view_alter(array &$suggestions, a
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function op_ext_search_form_wxt_search_api_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function op_ext_search_form_wxt_search_api_block_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
 
   $form['search_api_fulltext']['#placeholder'] = t('Search website');
@@ -42,7 +42,7 @@ function op_ext_search_form_wxt_search_api_block_form_alter(&$form, FormStateInt
 /**
  * Implements hook_module_implements_alter().
  */
-function op_ext_search_module_implements_alter(&$implementations, $hook) {
+function op_ext_search_module_implements_alter(array &$implementations, string $hook): void {
   if ($hook == 'form_wxt_search_api_block_form_alter') {
     // Unset op_ext_search hook if gcext implements it,
     // this allows us to override per project if needed.
@@ -55,7 +55,7 @@ function op_ext_search_module_implements_alter(&$implementations, $hook) {
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
-function op_ext_search_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function op_ext_search_form_views_exposed_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   // Hide label on search block on site search page.
   $view = $form_state->getStorage('view');
 
