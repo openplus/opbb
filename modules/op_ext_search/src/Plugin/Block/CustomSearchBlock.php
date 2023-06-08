@@ -39,8 +39,8 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
    */
   public function __construct(
     array $configuration,
-    $plugin_id,
-    $plugin_definition,
+    string $plugin_id,
+    mixed $plugin_definition,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected FormBuilderInterface $formBuilder,
   ) {
@@ -50,7 +50,7 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $configuration,
       $plugin_id,
@@ -65,7 +65,7 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
    *
    * This method sets the block default configuration.
    */
-  public function defaultConfiguration() {
+  public function defaultConfiguration(): array {
     return [
       'search' => [
         'search_label' => 'Search',
@@ -79,7 +79,7 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
    *
    * This method defines form elements for custom block configuration.
    */
-  public function blockForm($form, FormStateInterface $form_state) {
+  public function blockForm($form, FormStateInterface $form_state): array {
     $form = parent::blockForm($form, $form_state);
     $config = $this->getConfiguration();
 
@@ -207,7 +207,7 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
   /**
    * {@inheritdoc}
    */
-  public function blockSubmit($form, FormStateInterface $form_state) {
+  public function blockSubmit($form, FormStateInterface $form_state): void {
     parent::blockSubmit($form, $form_state);
     $this->configuration['search'] = $form_state->getValue('search');
     $this->configuration['facets'] = $form_state->getValue('facets');
@@ -216,16 +216,15 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
   /**
    * {@inheritdoc}
    */
-  public function build() {
+  public function build(): array {
     $config = $this->getConfiguration();
     return $this->formBuilder->getForm(CustomSearchApiForm::class, $config);
   }
 
   /**
-   * {@inheritdoc}
+   * Callback for #element_validate for search_url.
    */
-  public function validatePath(&$element, FormStateInterface $form_state) {
-
+  public function validatePath(array &$element, FormStateInterface $form_state, array &$complete_form): void {
     // Ensure the path has a leading slash.
     if ($value = trim($element['#value'], '/')) {
       $value = '/' . $value;
