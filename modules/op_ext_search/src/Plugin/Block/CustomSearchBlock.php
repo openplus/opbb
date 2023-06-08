@@ -127,7 +127,7 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
       '#maxlength' => 255,
       '#default_value' => $config['search']['search_url'],
       '#required' => TRUE,
-      '#element_validate' => [[$this, 'validatePath']],
+      '#element_validate' => [[static::class, 'validatePath']],
     ];
 
     $form['search']['search_btn_label'] = [
@@ -224,7 +224,7 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
   /**
    * Callback for #element_validate for search_url.
    */
-  public function validatePath(array &$element, FormStateInterface $form_state, array &$complete_form): void {
+  public static function validatePath(array &$element, FormStateInterface $form_state, array &$complete_form): void {
     // Ensure the path has a leading slash.
     if ($value = trim($element['#value'], '/')) {
       $value = '/' . $value;
@@ -232,7 +232,7 @@ class CustomSearchBlock extends BlockBase implements ContainerFactoryPluginInter
     }
     // Check to make sure the path exists after stripping slashes.
     else {
-      $form_state->setErrorByName('path', $this->t('Path is required.'));
+      $form_state->setErrorByName('path', t('Path is required.'));
     }
   }
 
