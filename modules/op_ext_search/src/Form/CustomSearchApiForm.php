@@ -137,7 +137,7 @@ class CustomSearchApiForm extends FormBase {
     $formKeyword = $form_state->getValue('search_keyword');
 
     if (!empty($formKeyword)) {
-      $query = ['search_api_fulltext' => $formKeyword];
+      $query = ['keys' => $formKeyword];
     }
 
     // Get existing query params from block config.
