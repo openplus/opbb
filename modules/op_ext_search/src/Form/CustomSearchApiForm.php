@@ -38,7 +38,7 @@ class CustomSearchApiForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('language_manager'),
@@ -49,14 +49,14 @@ class CustomSearchApiForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'custom_search_api_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $config = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, array $config = NULL): array {
     $lang = $this->languageManager->getCurrentLanguage()->getId();
 
     $form['search_url'] = [
@@ -129,7 +129,7 @@ class CustomSearchApiForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $formState = $form_state->getValues();
     $query = NULL;
 
