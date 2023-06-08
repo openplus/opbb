@@ -1,0 +1,7 @@
+{
+    "name": "openplus/opbb",
+    "description": "OpenPlus Base Build",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/openplus/opbb"
+}
